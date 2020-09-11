@@ -70,9 +70,11 @@ runs:
         echo ""
         echo "Checking Commits..."
 
-        git fetch --all --no-tags --depth=$(($MIN_COMMITS + 1)) --quiet
+        COMMIT_COUNT=$((MIN_COMMITS + 1))
+        git fetch --all --no-tags --depth=${COMMIT_COUNT} --quiet
         NUM_COMMITS=$(git rev-list --all --count)
         echo "::set-env name=NUM_COMMITS::${NUM_COMMITS}"
+        echo "Looked for ${COMMIT_COUNT} commits; found ${NUM_COMMITS}; ${MIN_COMMITS} required."
 
     # have to substitute all environment varaibles into the command files
     # since the autograder cannot access environment variables itself
