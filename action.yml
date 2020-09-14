@@ -23,7 +23,7 @@ runs:
 
         echo "::set-env name=MIN_COMMITS::${{ inputs.min_commits }}"
 
-        if [[ ${GITHUB_REPOSITORY} =~ .+\/homework-(.+)-.+ ]]; then
+        if [[ ${GITHUB_REPOSITORY} =~ .+\/homework-([^-]+)-.+ ]]; then
           export HOMEWORK_NAME=${BASH_REMATCH[1]}
           echo "Homework Name: ${HOMEWORK_NAME}"
 
