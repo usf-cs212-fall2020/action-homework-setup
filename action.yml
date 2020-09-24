@@ -1,5 +1,5 @@
-name: 'Parse Project Release'
-description: 'Github Action to parse the project, release, and test class to use from the tag.'
+name: 'Homework Setup'
+description: 'Github Action to setup homework grading.'
 
 inputs:
   min_commits:
@@ -55,11 +55,11 @@ runs:
       run: |
         echo ""
         echo "Template Tests:"
-        ls -aCG ${TEMPLATE_DIR}/template/${HOMEWORK_NAME}/src/test/java
+        ls -CGR ${TEMPLATE_DIR}/template/${HOMEWORK_NAME}/src/test/
 
-        mv -f ${TEMPLATE_DIR}/template/${HOMEWORK_NAME}/src/test ${HOMEWORK_NAME}/src/test
-        mv -f ${TEMPLATE_DIR}/template/${HOMEWORK_NAME}/pom.xml ${HOMEWORK_NAME}/
-
+        mv -fv ${TEMPLATE_DIR}/template/${HOMEWORK_NAME}/src/test ${HOMEWORK_NAME}/src/test
+        mv -fv ${TEMPLATE_DIR}/template/${HOMEWORK_NAME}/pom.xml ${HOMEWORK_NAME}/
+        
     # do this before so the NUM_COMMITS is properly substituted
     # in the next step
 
