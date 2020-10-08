@@ -21,13 +21,13 @@ runs:
         echo "Working: $(pwd)"
         echo "Repository: ${GITHUB_REPOSITORY}"
 
-        echo "::set-env name=MIN_COMMITS::${{ inputs.min_commits }}"
+        echo "MIN_COMMITS=${{ inputs.min_commits }}" >> $GITHUB_ENV
 
         if [[ ${GITHUB_REPOSITORY} =~ .+\/homework-([^-]+)-.+ ]]; then
           export HOMEWORK_NAME=${BASH_REMATCH[1]}
           echo "Homework Name: ${HOMEWORK_NAME}"
 
-          echo "::set-env name=HOMEWORK_NAME::${HOMEWORK_NAME}"
+          echo "HOMEWORK_NAME=${HOMEWORK_NAME}" >> $GITHUB_ENV
           echo "::set-output name=homework_name::${HOMEWORK_NAME}"
           exit 0
         fi
@@ -40,7 +40,7 @@ runs:
       run: |
         TEMPLATE_DIR=$(mktemp -d ~/template-XXXX)
         echo "Temporary Directory: ${TEMPLATE_DIR}"
-        echo "::set-env name=TEMPLATE_DIR::${TEMPLATE_DIR}"
+        echo "TEMPLATE_DIR=${TEMPLATE_DIR}" >> $GITHUB_ENV
 
     - name: Checkout Template Repository
       id: checkout-template
@@ -74,7 +74,7 @@ runs:
         git fetch --unshallow
         NUM_COMMITS=$(git rev-list --all --count)
         
-        echo "::set-env name=NUM_COMMITS::${NUM_COMMITS}"        
+        echo "NUM_COMMITS=${NUM_COMMITS}" >> $GITHUB_ENV
         echo "Looked for ${COMMIT_COUNT} commits; found ${NUM_COMMITS}; ${MIN_COMMITS} required."
 
     # have to substitute all environment varaibles into the command files
